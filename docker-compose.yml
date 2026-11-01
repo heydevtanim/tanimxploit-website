@@ -1,0 +1,20 @@
+# LOCAL DEVELOPMENT ONLY: a throwaway PostgreSQL for testing the staff portal on your own PC.
+# Listens on 127.0.0.1 only. Never reuse this password anywhere else.
+#   docker compose up -d      start
+#   docker compose down       stop (data kept)
+#   docker compose down -v    stop and delete all local data
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: txp
+      POSTGRES_PASSWORD: txp_local_only
+      POSTGRES_DB: tanimxploit
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - txp_pgdata:/var/lib/postgresql/data
+
+volumes:
+  txp_pgdata:
